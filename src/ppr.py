@@ -39,7 +39,7 @@ def personalized_pagerank(graph, bookmark, alpha, epsilon):
 def queue_based_personalized_pagerank(graph, bookmark, alpha, epsilon):
     p = {}
     q = queue.Queue()
-    in_queue = {}
+    in_queue = {}  # a list of items in the queue (because you can't iterate through a queue 😥)
 
     # initialize
     for node in graph.nodes():
@@ -50,17 +50,17 @@ def queue_based_personalized_pagerank(graph, bookmark, alpha, epsilon):
     while not q.empty():
         node = q.get()
         weight = in_queue[node]
-        in_queue.pop(node)
         p[node] = p[node] + alpha * weight
 
         if weight < epsilon:
             continue
 
         for neighbor in graph[node].keys():
+            neighbors_count = len(graph[node].keys())
             if neighbor in in_queue.keys():
-                in_queue[neighbor] = in_queue[neighbor] + (1 - alpha) * weight / len(graph[neighbor].keys())
+                in_queue[neighbor] = in_queue[neighbor] + (1 - alpha) * weight / neighbors_count
             else:
                 q.put(neighbor)
-                in_queue[neighbor] = (1 - alpha) * weight / len(graph[neighbor].keys())
+                in_queue[neighbor] = (1 - alpha) * weight / neighbors_count
 
     return p

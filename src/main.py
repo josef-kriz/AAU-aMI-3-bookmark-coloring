@@ -9,7 +9,7 @@ graph = create_graph2()
 
 # ppr = personalized_pagerank(graph, 'u1', 0.8, 0.1)
 # ppr = personalized_pagerank(graph, '1', 0.15, 0.02)
-ppr = queue_based_personalized_pagerank(graph, '1', 0.15, 0.02)
+ppr = queue_based_personalized_pagerank(graph, '1', 0.85, 0.01)
 print(ppr)
 
 # pagerank = net.pagerank(graph)
