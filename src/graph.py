@@ -7,12 +7,12 @@ import networkx as net
 def create_graph1():
     graph = net.Graph()
 
-    graph.add_node('u1')
-    graph.add_node('u2')
-    graph.add_node('u3')
-    graph.add_node('l1')
-    graph.add_node('l2')
-    graph.add_node('l3')
+    graph.add_node('u1', type='user')
+    graph.add_node('u2', type='user')
+    graph.add_node('u3', type='user')
+    graph.add_node('l1', type='location')
+    graph.add_node('l2', type='location')
+    graph.add_node('l3', type='location')
 
     graph.add_edge('u1', 'u3')
     graph.add_edge('u2', 'u3')

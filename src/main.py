@@ -3,14 +3,18 @@ import matplotlib.pyplot as plt
 
 from src.graph import create_graph1, create_graph2
 from src.ppr import personalized_pagerank, queue_based_personalized_pagerank
+from src.fbca import fbca
 
-# graph = create_graph1()
-graph = create_graph2()
+graph = create_graph1()
+# graph = create_graph2()
 
-# ppr = personalized_pagerank(graph, 'u1', 0.8, 0.1)
-# ppr = personalized_pagerank(graph, '1', 0.15, 0.02)
-ppr = queue_based_personalized_pagerank(graph, '1', 0.85, 0.01)
-print(ppr)
+ppr = personalized_pagerank(graph, 'u1', 0.8, 0.1)
+# ppr = personalized_pagerank(graph, '1', 0.15, 0.01)
+# ppr2 = queue_based_personalized_pagerank(graph, '1', 0.85, 0.01)
+# print(ppr)
+# print(ppr2)
+
+fbca(graph, 'u2', 1, 1)
 
 # pagerank = net.pagerank(graph)
 # print(pagerank)

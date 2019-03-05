@@ -16,15 +16,11 @@ def personalized_pagerank(graph, bookmark, alpha, epsilon):
 
     for i in range(0, 1):  # should be while
         for node in graph.nodes():
-            # print(node, b)
-            # print(' ', pi)
             if b[node] < epsilon:
                 continue
 
             pi[node] = pi[node] + (1 - alpha) * b[node]
-            # print(node)
             for neighbor in graph[node].keys():
-                # print(' ' + neighbor, b[neighbor] + alpha * b[node] / len(graph[node].keys()))
                 b[neighbor] = b[neighbor] + alpha * b[node] / len(graph[node].keys())
 
     return pi
