@@ -1,3 +1,4 @@
+import queue
 
 
 # Implementation of personalized pagerank (PPR) with the coloring bookmark algorithm (CBA)
@@ -27,3 +28,39 @@ def personalized_pagerank(graph, bookmark, alpha, epsilon):
                 b[neighbor] = b[neighbor] + alpha * b[node] / len(graph[node].keys())
 
     return pi
+
+
+# Implementation of PPR using a queue
+# Pavel Berkhin (2011) Bookmark-Coloring Algorithm for Personalized PageRank Computing, Algorithm 2
+# graph - networkx graph with nodes and edges
+# bookmark - a bookmark b
+# alpha - a retention coefficient
+# epsilon - a tolerance threshold
+def queue_based_personalized_pagerank(graph, bookmark, alpha, epsilon):
+    p = {}
+    q = queue.Queue()
+    in_queue = {}
+
+    # initialize
+    for node in graph.nodes():
+        p[node] = 0
+    q.put(bookmark)
+    in_queue[bookmark] = 1
+
+    while not q.empty():
+        node = q.get()
+        weight = in_queue[node]
+        in_queue.pop(node)
+        p[node] = p[node] + alpha * weight
+
+        if weight < epsilon:
+            continue
+
+        for neighbor in graph[node].keys():
+            if neighbor in in_queue.keys():
+                in_queue[neighbor] = in_queue[neighbor] + (1 - alpha) * weight / len(graph[neighbor].keys())
+            else:
+                q.put(neighbor)
+                in_queue[neighbor] = (1 - alpha) * weight / len(graph[neighbor].keys())
+
+    return p
