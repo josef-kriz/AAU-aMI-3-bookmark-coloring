@@ -17,10 +17,10 @@ def create_graph1():
     graph.add_edge('u1', 'u3')
     graph.add_edge('u2', 'u3')
 
-    graph.add_edge('u1', 'l1')
-    graph.add_edge('u1', 'l2')
-    graph.add_edge('u3', 'l2')
-    graph.add_edge('u3', 'l3')
+    graph.add_edge('u1', 'l1', weight=7)
+    graph.add_edge('u1', 'l2', weight=3)
+    graph.add_edge('u3', 'l2', weight=1)
+    graph.add_edge('u3', 'l3', weight=1)
 
     return graph
 
