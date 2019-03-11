@@ -9,9 +9,9 @@ epsilon = 0.001
 # social networks using user check-in data. Algorithm 2
 # graph - a LBSN
 # target - the target user
-# distance - a threshold for geographical distance
+# max_dist - a threshold for geographical distance
 # n - the number of new locations to recommend
-def fbca(graph, target, distance, n):
+def fbca(graph, target, max_dist, n):
     visited_locations = list(filter(lambda node: graph.nodes[node]['type'] == 'location', graph[target]))
 
     users = list(filter(lambda node: graph.nodes[node]['type'] == 'user' and node != target, graph.nodes()))
@@ -29,6 +29,18 @@ def fbca(graph, target, distance, n):
         for location in user_locations:
             s[location] = s[location] + pi[user] * graph.get_edge_data(user, location)['weight']
 
-    # TODO lines 7-14
+    r = {}
 
-    return
+    for location in locations:
+        if 0 > max_dist:  # the real distance between the location and user's locations is not considered
+            continue
+
+        if len(r) < n:
+            r[location] = s[location]
+        elif s[location] <= r[min(r, key=r.get)]:
+            continue
+        else:
+            r.pop(min(r, key=r.get))
+            r[location] = s[location]
+
+    return r

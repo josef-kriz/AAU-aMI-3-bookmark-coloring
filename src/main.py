@@ -14,7 +14,8 @@ ppr = personalized_pagerank(graph, 'u1', 0.8, 0.1)
 # print(ppr)
 # print(ppr2)
 
-fbca(graph, 'u2', 1, 1)
+locs = fbca(graph, 'u2', 1, 10)
+print(locs)
 
 # pagerank = net.pagerank(graph)
 # print(pagerank)
