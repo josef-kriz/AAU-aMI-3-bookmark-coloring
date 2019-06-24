@@ -19,8 +19,9 @@ def fbca(graph, target, max_dist, n):
     users = list(filter(lambda node: graph.nodes[node]['type'] == 'user' and node != target, graph.nodes()))
     pi = {}
     # compute importance of all users using ppr
+    friends = queue_based_personalized_pagerank(graph, target, alpha, epsilon)
     for user in users:
-        pi[user] = personalized_pagerank(graph, user, alpha, epsilon)[user]
+        pi[user] = friends[user]
 
     print(pi)
 
