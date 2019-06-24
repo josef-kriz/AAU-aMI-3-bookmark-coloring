@@ -12,7 +12,8 @@ def personalized_pagerank(graph, bookmark, alpha, epsilon):
     for node in graph.nodes():  # initialize b and pi
         pi[node] = 0
         b[node] = 0
-        b[bookmark] = 1
+
+    b[bookmark] = 1
 
     for i in range(0, 1):  # should be while
         for node in graph.nodes():
@@ -40,9 +41,12 @@ def queue_based_personalized_pagerank(graph, bookmark, alpha, epsilon):
     # initialize
     for node in graph.nodes():
         p[node] = 0
+
+    # inject color to bookmark
     q.put(bookmark)
     in_queue[bookmark] = 1
 
+    # spread the color to neighbors in case it is not too low
     while not q.empty():
         node = q.get()
         weight = in_queue[node]
